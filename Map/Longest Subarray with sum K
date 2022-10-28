@@ -1,0 +1,22 @@
+int lenOfLongSubarr(int A[],  int N, int K) 
+    { 
+       //create prefix sum in add_ele 
+       //and if there is duplicate keep the initial one
+       //prefix_sum - K is to be found in the map
+       int add_ele=0,len=0;
+        map<int,int> sum;
+        for(int i=0;i<N;i++){
+           add_ele+=A[i];
+            if(add_ele==K){
+              len = max(i+1,len);  
+            }
+           else if(sum.find(add_ele-K)!=sum.end() )
+                len = max(len,i-sum[add_ele-K]);
+            
+           if(sum.find(add_ele)==sum.end()){
+            //   cout << "inside if";
+               sum[add_ele]=i;
+           }
+        } 
+        return len;
+    } 
