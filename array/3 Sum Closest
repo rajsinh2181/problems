@@ -1,0 +1,21 @@
+ int closest3Sum(int A[], int N, int K)
+    {
+        //for each element in the array we try to find two elments closest to target number
+        //tc = O(n^2)
+        //first for loop just picks the number
+        //second finds the other two
+        int target_sum = INT_MAX;
+        sort(A,A+N);
+        int sum = 0;
+        for(int i=0;i<N;i++){
+            int p1 = i+1, p2 = N-1;
+            while(p1 < p2){
+                sum = A[i] + A[p1] + A[p2];
+                if(sum == K) return K;
+                else if(sum < K) p1++;
+                else p2--;
+                if(abs(target_sum-K)>abs(sum-K))target_sum = sum;
+            }
+        }
+        return target_sum;
+    }
