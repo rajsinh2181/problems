@@ -1,0 +1,32 @@
+question link - https://practice.geeksforgeeks.org/problems/8a644e94faaa94968d8665ba9e0a80d1ae3e0a2d/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=overlapping_intervals
+
+TC - O(n) + O(nlogn){sorting}
+vector<vector<int>> overlappedInterval(vector<vector<int>>& v) {
+        //resultant vector
+        vector<vector<int>> v1;
+        //current vector
+        vector<int> sub;
+        sort(v.begin(),v.end());
+        int l = v[0][0];
+        sub.push_back(l);
+        int r = v[0][1];
+        for(int i=1;i<v.size();i++){
+        //check if next elements start is less than end of current
+            if(v[i][0] <= r){
+                r = max(r,v[i][1]);
+            }
+            else if(v[i][0] > r){
+                sub.push_back(r);
+                v1.push_back(sub);
+                //updation
+                l = v[i][0];
+                r = v[i][1];
+                //clearing the current vector
+                sub.clear();
+                sub.push_back(l);
+            }
+        }
+        sub.push_back(r);
+        v1.push_back(sub);
+        return v1;
+    }
