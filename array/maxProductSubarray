@@ -1,0 +1,32 @@
+
+long long maxProduct(vector<int> nums, int n) {
+	    long long int first_neg=0, last_neg=0, maxi = INT_MIN, flag = 0;
+        long long int prod=1;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]!=0){
+                prod = prod * nums[i];
+                maxi = max(maxi , prod);
+            }
+             //if we encounter 0 then make current product as 1
+             //and flag = 0 since we are going to find new subarray after 0
+             //and check for max value if any before 0
+            else{
+                prod = 1;
+                flag = 0;
+                maxi = max(maxi,flag);
+            }
+            //we mark the first negative so that when we encounter an odd 
+            //negative we update the max value
+            if(prod < 0 && flag == 0){
+                first_neg = prod;
+                flag = 1;
+            }
+            //when we encounter the next negative we mark it and compare 
+            // it with max value
+            else if(prod < 0 && flag == 1){
+                last_neg = prod;
+                maxi = max(maxi,last_neg/first_neg);
+            }
+        } 
+        return maxi;
+	}
